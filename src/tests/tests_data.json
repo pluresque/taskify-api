@@ -1,0 +1,86 @@
+{
+  "priorities": [
+    {
+      "id": 1,
+      "name": "Low"
+    },
+    {
+      "id": 2,
+      "name": "Medium"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Personal"
+    },
+    {
+      "id": 2,
+      "name": "Work"
+    }
+  ],
+  "users": [
+    {
+      "email": "test1@test.com",
+      "password": "test",
+      "categories": [
+        {
+          "id": 3,
+          "name": "Chess"
+        }
+      ],
+      "todos": [
+        {
+          "id": 1,
+          "is_completed": false,
+          "content": "Learn the sicilian opening",
+          "priority": {
+            "id": 2,
+            "name": "Medium"
+          },
+          "categories": [
+            {
+              "id": 1,
+              "name": "Personal"
+            },
+            {
+              "id": 3,
+              "name": "Chess"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "email": "test2@test.com",
+      "password": "test",
+      "categories": [
+        {
+          "id": 4,
+          "name": "Nintendo"
+        }
+      ],
+      "todos": [
+        {
+          "id": 2,
+          "is_completed": false,
+          "content": "Grind mario kart online",
+          "priority": {
+            "id": 1,
+            "name": "Low"
+          },
+          "categories": [
+            {
+              "id": 1,
+              "name": "Personal"
+            },
+            {
+              "id": 4,
+              "name": "Nintendo"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

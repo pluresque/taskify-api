@@ -1,0 +1,4 @@
+{
+  "priorities_names": ["Low", "Medium", "High"],
+  "categories_names": ["Personal", "Work", "Home", "Health", "Social", "Entertainment"]
+}

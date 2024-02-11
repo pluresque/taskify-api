@@ -1,0 +1,6 @@
+venv/
+.idea
+__pycache__
+.env
+.egg-info
+.ruff_cache.env
