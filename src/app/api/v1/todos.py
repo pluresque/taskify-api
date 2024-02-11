@@ -13,9 +13,9 @@ from app.utils import (exception_handler, get_open_api_response,
                        get_open_api_unauthorized_access_response)
 
 router = APIRouter(
-    prefix="/src",
+    prefix="/todo",
     dependencies=[Depends(current_logged_user), Depends(get_async_session)],
-    tags=["Todos"],
+    tags=["Tasks"],
 )
 
 
