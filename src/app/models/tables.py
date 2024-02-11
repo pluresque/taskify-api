@@ -20,8 +20,6 @@ class Priority(Base):
 class Category(Base):
     id = Column(BigInteger(), primary_key=True, autoincrement=True)
     name = Column(Text(), nullable=False)
-    # Default categories are those where created_by_id is NULL,
-    # indicating they are created by the system and are applicable to all users
     created_by_id = Column(GUID, ForeignKey("user.id"))
 
     __table_args__ = (
@@ -48,7 +46,7 @@ class Todo(Base):
         lazy="selectin",
         viewonly=True,
     )
-    # just for adding todos_categories when adding a todo
+
     todos_categories: RelationshipProperty = relationship(
         "TodoCategory", lazy="selectin", cascade="all, delete-orphan"
     )

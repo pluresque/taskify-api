@@ -5,9 +5,7 @@ from app.users.security import get_jwt_strategy
 
 config = get_config()
 
-
 bearer_transport = BearerTransport(tokenUrl=f"{config.API_V1_STR}/auth/login")
-
 auth_backend = AuthenticationBackend(
     name="jwt",
     transport=bearer_transport,
