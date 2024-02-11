@@ -11,20 +11,19 @@ from app.utils import get_open_api_unauthorized_access_response
 
 router = APIRouter(
     prefix="/priorities",
-    dependencies=[
-        Depends(current_logged_user),
-        Depends(get_async_session)
-    ],
-    tags=["Priorities"]
+    dependencies=[Depends(current_logged_user), Depends(get_async_session)],
+    tags=["Priorities"],
 )
 
 
 @router.get(
     "",
     response_model=list[PriorityRead],
-    responses={status.HTTP_401_UNAUTHORIZED: get_open_api_unauthorized_access_response()}
+    responses={
+        status.HTTP_401_UNAUTHORIZED: get_open_api_unauthorized_access_response()
+    },
 )
 async def get_priorities(
-    session: AsyncSession = Depends(get_async_session)
+    session: AsyncSession = Depends(get_async_session),
 ) -> Priority:
     return await db_service.get_priorities(session)

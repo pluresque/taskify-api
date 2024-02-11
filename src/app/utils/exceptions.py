@@ -24,4 +24,5 @@ def exception_handler(f: Callable) -> Any:
             exception_cls = type(err)
             status_code = exception_map[exception_cls]
             raise HTTPException(status_code=status_code, detail=str(err))
+
     return decorated

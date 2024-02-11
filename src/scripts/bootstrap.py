@@ -44,7 +44,8 @@ async def initiate_data(session: AsyncSession) -> None:
     # If there are no categories in the database, add the initial categories
     if not categories_from_db:
         categories: list[Category] = [
-            Category(name=category_name, created_by_id=None) for category_name in initial_categories_names
+            Category(name=category_name, created_by_id=None)
+            for category_name in initial_categories_names
         ]
         session.add_all(categories)
 

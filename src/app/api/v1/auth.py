@@ -4,10 +4,7 @@ from app.users.users import fast_api_users
 from app.users.auth import auth_backend
 from app.schemas import UserRead, UserCreate
 
-router = APIRouter(
-    prefix="/auth",
-    tags=["Auth"]
-)
+router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
 router.include_router(fast_api_users.get_register_router(UserRead, UserCreate))

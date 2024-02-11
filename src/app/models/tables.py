@@ -2,14 +2,21 @@ from typing import Union
 
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID
 from fastapi_users_db_sqlalchemy import GUID
-from sqlalchemy import Column, ForeignKey, Text, String, BigInteger, Boolean, UniqueConstraint
+from sqlalchemy import (
+    Column,
+    ForeignKey,
+    Text,
+    String,
+    BigInteger,
+    Boolean,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import relationship, RelationshipProperty
 
 from app.models.base import Base
 
 
-class User(SQLAlchemyBaseUserTableUUID, Base):
-    ...
+class User(SQLAlchemyBaseUserTableUUID, Base): ...
 
 
 class Priority(Base):
@@ -29,10 +36,7 @@ class Category(Base):
     )
 
     todos: RelationshipProperty = relationship(
-        "Todo",
-        secondary="todo_category",
-        back_populates="categories",
-        viewonly=True
+        "Todo", secondary="todo_category", back_populates="categories", viewonly=True
     )
 
 
@@ -49,13 +53,11 @@ class Todo(Base):
         secondary="todo_category",
         back_populates="todos",
         lazy="selectin",
-        viewonly=True
+        viewonly=True,
     )
     # just for adding todos_categories when adding a todo
     todos_categories: RelationshipProperty = relationship(
-        "TodoCategory",
-        lazy="selectin",
-        cascade="all, delete-orphan"
+        "TodoCategory", lazy="selectin", cascade="all, delete-orphan"
     )
 
     def dict(self) -> dict:
@@ -68,10 +70,8 @@ class Todo(Base):
 
 class TodoCategory(Base):
     todo_id = Column(
-        BigInteger(),
-        ForeignKey("todo.id", ondelete="CASCADE"), primary_key=True
+        BigInteger(), ForeignKey("todo.id", ondelete="CASCADE"), primary_key=True
     )
     category_id = Column(
-        BigInteger(),
-        ForeignKey("category.id", ondelete="CASCADE"), primary_key=True
+        BigInteger(), ForeignKey("category.id", ondelete="CASCADE"), primary_key=True
     )

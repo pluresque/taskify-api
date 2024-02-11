@@ -19,24 +19,20 @@ logger = logging.getLogger(__name__)
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     reset_password_token_secret: SecretStr = config.JWT_SECRET_KEY
-    reset_password_token_lifetime_seconds: int = config.RESET_PASSWORD_TOKEN_LIFETIME_SECONDS
+    reset_password_token_lifetime_seconds: int = (
+        config.RESET_PASSWORD_TOKEN_LIFETIME_SECONDS
+    )
     verification_token_secret: SecretStr = config.JWT_SECRET_KEY
     verification_token_lifetime_seconds: int = config.VERIFY_TOKEN_LIFETIME_SECONDS
 
     async def on_after_forgot_password(
-            self,
-            user: User,
-            token: str,
-            request: Optional[Request] = None
+        self, user: User, token: str, request: Optional[Request] = None
     ) -> None:
         send_reset_password_email(email_to=user.email, token=token)
         logger.info("sent reset password email to %s", user.email)
 
     async def on_after_request_verify(
-            self,
-            user: User,
-            token: str,
-            request: Optional[Request] = None
+        self, user: User, token: str, request: Optional[Request] = None
     ) -> None:
         send_account_verification_email(email_to=user.email, token=token)
         logger.info("sent account verification email to %s", user.email)

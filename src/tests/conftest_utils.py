@@ -40,7 +40,8 @@ async def insert_test_data(session: AsyncSession) -> None:
                     UserCreate(email=user["email"], password=user["password"])
                 )
         users_categories: list[Category] = [
-            Category(name=c["name"], created_by_id=db_user.id) for c in user["categories"]
+            Category(name=c["name"], created_by_id=db_user.id)
+            for c in user["categories"]
         ]
         session.add_all(users_categories)
         todos: list[Todo] = [
@@ -48,8 +49,11 @@ async def insert_test_data(session: AsyncSession) -> None:
                 content=t["content"],
                 priority_id=t["priority"]["id"],
                 created_by_id=db_user.id,
-                todos_categories=[TodoCategory(category_id=c["id"]) for c in t["categories"]]
-            ) for t in user["src"]
+                todos_categories=[
+                    TodoCategory(category_id=c["id"]) for c in t["categories"]
+                ],
+            )
+            for t in user["src"]
         ]
         session.add_all(todos)
     await session.commit()

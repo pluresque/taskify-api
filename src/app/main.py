@@ -9,8 +9,7 @@ config = get_config()
 
 # Create FastAPI instance
 app = FastAPI(
-    title=config.PROJECT_NAME,
-    openapi_url=f"{config.API_V1_STR}/openapi.json"
+    title=config.PROJECT_NAME, openapi_url=f"{config.API_V1_STR}/openapi.json"
 )
 
 # Add CORS middleware

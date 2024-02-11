@@ -14,8 +14,11 @@ logger = logging.getLogger(__name__)
 
 
 def send_email(
-    *, email_to: str, environment: Optional[dict[str, Any]],
-    subject_template: str = "", html_template: str = "",
+    *,
+    email_to: str,
+    environment: Optional[dict[str, Any]],
+    subject_template: str = "",
+    html_template: str = "",
 ) -> None:
 
     if not config.EMAILS_ENABLED:
@@ -50,27 +53,39 @@ def send_email(
 
 def send_reset_password_email(*, email_to: str, token: str) -> None:
     subject = f"{config.PROJECT_NAME} - Password recovery for email {email_to}"
-    with open(f"{config.EMAIL_TEMPLATES_DIR}/reset_password.html", "r", encoding="utf-8") as f:
+    with open(
+        f"{config.EMAIL_TEMPLATES_DIR}/reset_password.html", "r", encoding="utf-8"
+    ) as f:
         template_str = f.read()
     link = f"{config.FRONT_END_BASE_URL}/reset-password?token={token}"
     send_email(
         email_to=email_to,
         subject_template=subject,
         html_template=template_str,
-        environment=dict(project_name=config.PROJECT_NAME, email=email_to, link=link,
-                         expire_hours=config.RESET_PASSWORD_TOKEN_LIFETIME_SECONDS / 3600)
+        environment=dict(
+            project_name=config.PROJECT_NAME,
+            email=email_to,
+            link=link,
+            expire_hours=config.RESET_PASSWORD_TOKEN_LIFETIME_SECONDS / 3600,
+        ),
     )
 
 
 def send_account_verification_email(*, email_to: str, token: str) -> None:
     subject = f"{config.PROJECT_NAME} - Account verification for email {email_to}"
-    with open(f"{config.EMAIL_TEMPLATES_DIR}/account_verification.html", "r", encoding="utf-8") as f:
+    with open(
+        f"{config.EMAIL_TEMPLATES_DIR}/account_verification.html", "r", encoding="utf-8"
+    ) as f:
         template_str = f.read()
     link = f"{config.FRONT_END_BASE_URL}/verify-account?token={token}"
     send_email(
         email_to=email_to,
         subject_template=subject,
         html_template=template_str,
-        environment=dict(project_name=config.PROJECT_NAME, email=email_to, link=link,
-                         expire_hours=config.VERIFY_TOKEN_LIFETIME_SECONDS / 3600)
+        environment=dict(
+            project_name=config.PROJECT_NAME,
+            email=email_to,
+            link=link,
+            expire_hours=config.VERIFY_TOKEN_LIFETIME_SECONDS / 3600,
+        ),
     )

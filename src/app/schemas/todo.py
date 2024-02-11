@@ -39,7 +39,9 @@ class TodoInDB(BaseInDB, TodoCreate):
         orm_data = dict(self)
         categories_ids = orm_data.pop("categories_ids")
         todo_orm = self.Config.orm_model(**orm_data)
-        todo_orm.todos_categories = [TodoCategory(category_id=c_id) for c_id in categories_ids]
+        todo_orm.todos_categories = [
+            TodoCategory(category_id=c_id) for c_id in categories_ids
+        ]
         return todo_orm
 
 

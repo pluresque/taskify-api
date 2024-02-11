@@ -8,9 +8,7 @@ from fastapi import APIRouter, Depends, status, Response
 from app.core.db import get_async_session
 
 router = APIRouter(
-    prefix="/health",
-    dependencies=[Depends(get_async_session)],
-    tags=["Health"]
+    prefix="/health", dependencies=[Depends(get_async_session)], tags=["Health"]
 )
 
 
@@ -18,10 +16,10 @@ router = APIRouter(
     "",
     status_code=status.HTTP_204_NO_CONTENT,
     responses={
-            status.HTTP_503_SERVICE_UNAVAILABLE: {
-                "description": "Database connection is unavailable",
-            }
+        status.HTTP_503_SERVICE_UNAVAILABLE: {
+            "description": "Database connection is unavailable",
         }
+    },
 )
 async def health(
     session: AsyncSession = Depends(get_async_session),

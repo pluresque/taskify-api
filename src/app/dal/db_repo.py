@@ -15,15 +15,14 @@ UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseUpdateInDB)
 
 class DBRepo:
 
-    def __init__(self) -> None:
-        ...
+    def __init__(self) -> None: ...
 
     async def get(  # type: ignore[no-untyped-def]
         self,
         session: AsyncSession,
         *,
         table_model: Type[ModelType],
-        query_filter=None  # type: ignore
+        query_filter=None,  # type: ignore
     ) -> Union[Optional[ModelType]]:
         query = select(table_model)
         if query_filter is not None:
@@ -31,14 +30,14 @@ class DBRepo:
         result = await session.execute(query)
         return result.scalars().first()
 
-    async def get_multi(    # type: ignore[no-untyped-def]
+    async def get_multi(  # type: ignore[no-untyped-def]
         self,
         session: AsyncSession,
         *,
         table_model: Type[ModelType],
         query_filter=None,
         skip: int = GET_MULTI_DEFAULT_SKIP,
-        limit: Optional[int] = None
+        limit: Optional[int] = None,
     ) -> list[ModelType]:
         query = select(table_model)
         if query_filter is not None:
@@ -50,10 +49,7 @@ class DBRepo:
         return result.scalars().all()
 
     async def create(
-        self,
-        session: AsyncSession,
-        *,
-        obj_to_create: InDBSchemaType
+        self, session: AsyncSession, *, obj_to_create: InDBSchemaType
     ) -> ModelType:
         db_obj: ModelType = obj_to_create.to_orm()
         session.add(db_obj)
@@ -62,14 +58,19 @@ class DBRepo:
         return db_obj
 
     async def update(
-        self, session: AsyncSession, *,
+        self,
+        session: AsyncSession,
+        *,
         updated_obj: UpdateSchemaType,
-        db_obj_to_update: Optional[ModelType] = None
+        db_obj_to_update: Optional[ModelType] = None,
     ) -> Optional[ModelType]:
-        existing_obj_to_update: Optional[ModelType] = db_obj_to_update or await self.get(
-            session,
-            table_model=updated_obj.Config.orm_model,
-            query_filter=updated_obj.Config.orm_model.id == updated_obj.id
+        existing_obj_to_update: Optional[ModelType] = (
+            db_obj_to_update
+            or await self.get(
+                session,
+                table_model=updated_obj.Config.orm_model,
+                query_filter=updated_obj.Config.orm_model.id == updated_obj.id,
+            )
         )
         if existing_obj_to_update:
             existing_obj_to_update_data = existing_obj_to_update.dict()
@@ -83,11 +84,7 @@ class DBRepo:
         return existing_obj_to_update
 
     async def delete(
-        self,
-        session: AsyncSession,
-        *,
-        table_model: Type[ModelType],
-        id_to_delete: int
+        self, session: AsyncSession, *, table_model: Type[ModelType], id_to_delete: int
     ) -> None:
         query = delete(table_model).where(table_model.id == id_to_delete)
         await session.execute(query)

@@ -22,7 +22,7 @@ class DBService:
         session: AsyncSession,
         *,
         todo_categories_ids: list[int],
-        created_by_id: uuid.UUID
+        created_by_id: uuid.UUID,
     ) -> bool:
         # validates that the todo categories are valid to the user + no duplications
         default_categories_filter = Category.created_by_id.is_(None)
@@ -33,7 +33,7 @@ class DBService:
         categories_from_db: list[Category] = await self._repo.get_multi(
             session,
             table_model=Category,
-            query_filter=and_(valid_categories_filter, todo_categories_ids_filter)
+            query_filter=and_(valid_categories_filter, todo_categories_ids_filter),
         )
         are_categories_valid: bool = len(todo_categories_ids) == len(categories_from_db)
         return are_categories_valid
@@ -47,7 +47,7 @@ class DBService:
         *,
         created_by_id: uuid.UUID,
         skip: int = GET_MULTI_DEFAULT_SKIP,
-        limit: int = GET_MULTI_DEFAULT_LIMIT
+        limit: int = GET_MULTI_DEFAULT_LIMIT,
     ) -> list[Category]:
         default_categories_filter = Category.created_by_id.is_(None)
         user_categories_filter = Category.created_by_id == created_by_id
@@ -57,40 +57,35 @@ class DBService:
             table_model=Category,
             query_filter=query_filter,
             limit=limit,
-            skip=skip
+            skip=skip,
         )
 
     async def add_category(
-        self,
-        session: AsyncSession,
-        *,
-        category_in: CategoryInDB
+        self, session: AsyncSession, *, category_in: CategoryInDB
     ) -> Category:
         users_categories: list[Category] = await self.get_categories(
-            session,
-            created_by_id=category_in.created_by_id)
+            session, created_by_id=category_in.created_by_id
+        )
         users_categories_names: list[str] = [c.name for c in users_categories]
         if category_in.name in users_categories_names:
             raise ResourceAlreadyExists(resource="category name")
         return await self._repo.create(session, obj_to_create=category_in)
 
     async def delete_category(
-        self,
-        session: AsyncSession,
-        *,
-        id_to_delete: int,
-        created_by_id: uuid.UUID
+        self, session: AsyncSession, *, id_to_delete: int, created_by_id: uuid.UUID
     ) -> None:
         category_to_delete: Optional[Category] = await self._repo.get(
-            session,
-            table_model=Category,
-            query_filter=Category.id == id_to_delete
+            session, table_model=Category, query_filter=Category.id == id_to_delete
         )
         if not category_to_delete:
             raise ResourceNotExists(resource="category")
         if category_to_delete.created_by_id != created_by_id:
-            raise UserNotAllowed("a user can not delete a category that was not created by him")
-        await self._repo.delete(session, table_model=Category, id_to_delete=id_to_delete)
+            raise UserNotAllowed(
+                "a user can not delete a category that was not created by him"
+            )
+        await self._repo.delete(
+            session, table_model=Category, id_to_delete=id_to_delete
+        )
 
     async def get_todos(
         self,
@@ -98,26 +93,21 @@ class DBService:
         *,
         created_by_id: uuid.UUID,
         skip: int = GET_MULTI_DEFAULT_SKIP,
-        limit: int = GET_MULTI_DEFAULT_LIMIT
+        limit: int = GET_MULTI_DEFAULT_LIMIT,
     ) -> list[Todo]:
         return await self._repo.get_multi(
             session,
             table_model=Todo,
             query_filter=Todo.created_by_id == created_by_id,
             skip=skip,
-            limit=limit
+            limit=limit,
         )
 
-    async def add_todo(
-        self,
-        session: AsyncSession,
-        *,
-        todo_in: TodoInDB
-    ) -> Todo:
+    async def add_todo(self, session: AsyncSession, *, todo_in: TodoInDB) -> Todo:
         if await self._validate_todo_categories(
             session,
             todo_categories_ids=todo_in.categories_ids,
-            created_by_id=todo_in.created_by_id
+            created_by_id=todo_in.created_by_id,
         ):
             try:
                 return await self._repo.create(session, obj_to_create=todo_in)
@@ -126,30 +116,25 @@ class DBService:
         raise ValueError("categories are not valid")
 
     async def update_todo(
-        self,
-        session: AsyncSession,
-        *,
-        updated_todo: TodoUpdateInDB
+        self, session: AsyncSession, *, updated_todo: TodoUpdateInDB
     ) -> Todo:
         todo_to_update: Optional[Todo] = await self._repo.get(
-            session,
-            table_model=Todo,
-            query_filter=Todo.id == updated_todo.id
+            session, table_model=Todo, query_filter=Todo.id == updated_todo.id
         )
         if not todo_to_update:
             raise ResourceNotExists(resource="todo")
         if not todo_to_update.created_by_id == updated_todo.created_by_id:
-            raise UserNotAllowed("a user can not update a todo that was not created by him")
+            raise UserNotAllowed(
+                "a user can not update a todo that was not created by him"
+            )
         if await self._validate_todo_categories(
             session,
             todo_categories_ids=updated_todo.categories_ids,
-            created_by_id=updated_todo.created_by_id
+            created_by_id=updated_todo.created_by_id,
         ):
             try:
                 todo_updated_obj: Optional[Todo] = await self._repo.update(
-                    session,
-                    updated_obj=updated_todo,
-                    db_obj_to_update=todo_to_update
+                    session, updated_obj=updated_todo, db_obj_to_update=todo_to_update
                 )
                 if todo_updated_obj:
                     return todo_updated_obj
@@ -159,21 +144,17 @@ class DBService:
         raise ValueError("categories are not valid")
 
     async def delete_todo(
-        self,
-        session: AsyncSession,
-        *,
-        id_to_delete: int,
-        created_by_id: uuid.UUID
+        self, session: AsyncSession, *, id_to_delete: int, created_by_id: uuid.UUID
     ) -> None:
         todo_to_delete: Optional[Todo] = await self._repo.get(
-            session,
-            table_model=Todo,
-            query_filter=Todo.id == id_to_delete
+            session, table_model=Todo, query_filter=Todo.id == id_to_delete
         )
         if not todo_to_delete:
             raise ResourceNotExists(resource="todo")
         if todo_to_delete.created_by_id != created_by_id:
-            raise UserNotAllowed("a user can not delete a todo that was not created by him")
+            raise UserNotAllowed(
+                "a user can not delete a todo that was not created by him"
+            )
         await self._repo.delete(session, table_model=Todo, id_to_delete=id_to_delete)
 
 

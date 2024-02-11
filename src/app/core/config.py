@@ -1,7 +1,14 @@
 from functools import lru_cache
 from typing import Any, Optional
 
-from pydantic import BaseSettings, PostgresDsn, AnyHttpUrl, validator, SecretStr, EmailStr
+from pydantic import (
+    BaseSettings,
+    PostgresDsn,
+    AnyHttpUrl,
+    validator,
+    SecretStr,
+    EmailStr,
+)
 
 
 class Settings(BaseSettings):
@@ -52,11 +59,13 @@ class Settings(BaseSettings):
 
     @validator("EMAILS_ENABLED", pre=True)
     def get_emails_enabled(cls, _: bool, values: dict[str, Any]) -> bool:
-        return all([
-            values.get("SMTP_HOST"),
-            values.get("SMTP_PORT"),
-            values.get("EMAILS_FROM_EMAIL")
-        ])
+        return all(
+            [
+                values.get("SMTP_HOST"),
+                values.get("SMTP_PORT"),
+                values.get("EMAILS_FROM_EMAIL"),
+            ]
+        )
 
     # 60 seconds by 60 minutes (1 hour) and then by 12 (for 12 hours total)
     RESET_PASSWORD_TOKEN_LIFETIME_SECONDS: int = 60 * 60 * 12
