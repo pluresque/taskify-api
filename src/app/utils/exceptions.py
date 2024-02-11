@@ -3,8 +3,7 @@ from typing import Any, Callable, Type
 
 from fastapi import HTTPException, status
 
-from app.http_exceptions import (ResourceAlreadyExists, ResourceNotExists,
-                                 UserNotAllowed)
+from app.http_exceptions import ResourceAlreadyExists, ResourceNotExists, UserNotAllowed
 
 
 def exception_handler(f: Callable) -> Any:

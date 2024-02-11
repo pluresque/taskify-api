@@ -1,8 +1,14 @@
 from functools import lru_cache
 from typing import Any, Optional
 
-from pydantic import (AnyHttpUrl, BaseSettings, EmailStr, PostgresDsn,
-                      SecretStr, validator)
+from pydantic import (
+    AnyHttpUrl,
+    BaseSettings,
+    EmailStr,
+    PostgresDsn,
+    SecretStr,
+    validator,
+)
 
 
 class Settings(BaseSettings):

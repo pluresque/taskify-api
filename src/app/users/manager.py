@@ -8,8 +8,7 @@ from pydantic import SecretStr
 
 from app.core.config import get_config
 from app.models.tables import User
-from app.utils import (send_account_verification_email,
-                       send_reset_password_email)
+from app.utils import send_account_verification_email, send_reset_password_email
 
 config = get_config()
 

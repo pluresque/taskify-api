@@ -2,8 +2,15 @@ from typing import Union
 
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID
 from fastapi_users_db_sqlalchemy import GUID
-from sqlalchemy import (BigInteger, Boolean, Column, ForeignKey, String, Text,
-                        UniqueConstraint)
+from sqlalchemy import (
+    BigInteger,
+    Boolean,
+    Column,
+    ForeignKey,
+    String,
+    Text,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import RelationshipProperty, relationship
 
 from app.models.base import Base
