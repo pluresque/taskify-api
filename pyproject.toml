@@ -133,8 +133,6 @@ test = [
 ]
 lint = [
     "ruff",
-    "black",
-    "isort",
 ]
 
 [project.urls]
