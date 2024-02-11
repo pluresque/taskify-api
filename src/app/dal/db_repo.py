@@ -1,12 +1,11 @@
-from typing import Optional, Type, TypeVar, Union, Any
+from typing import Any, Optional, Type, TypeVar, Union
 
+from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, delete
 
+from app.dal.constants import GET_MULTI_DEFAULT_SKIP
 from app.models.base import Base
 from app.schemas.base import BaseInDB, BaseUpdateInDB
-from app.dal.constants import GET_MULTI_DEFAULT_SKIP
-
 
 ModelType = TypeVar("ModelType", bound=Base)
 InDBSchemaType = TypeVar("InDBSchemaType", bound=BaseInDB)

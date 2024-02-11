@@ -1,15 +1,16 @@
 import uuid
 from typing import Optional
 
-from sqlalchemy import or_, and_
+from sqlalchemy import and_, or_
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.dal.constants import GET_MULTI_DEFAULT_LIMIT, GET_MULTI_DEFAULT_SKIP
 from app.dal.db_repo import DBRepo
-from app.dal.constants import GET_MULTI_DEFAULT_SKIP, GET_MULTI_DEFAULT_LIMIT
-from app.models.tables import Priority, Category, Todo
+from app.http_exceptions import (ResourceAlreadyExists, ResourceNotExists,
+                                 UserNotAllowed)
+from app.models.tables import Category, Priority, Todo
 from app.schemas import CategoryInDB, TodoInDB, TodoUpdateInDB
-from app.http_exceptions import ResourceNotExists, UserNotAllowed, ResourceAlreadyExists
 
 
 class DBService:

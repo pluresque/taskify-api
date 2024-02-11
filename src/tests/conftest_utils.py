@@ -1,15 +1,14 @@
-from typing import Final, Union
 import contextlib
 import json
+from typing import Final, Union
 
 from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.users.users import get_user_db, get_user_manager
-from app.schemas import UserCreate
-from app.models.tables import Priority, Category, Todo, TodoCategory, User
 from app.core.config import get_config
-
+from app.models.tables import Category, Priority, Todo, TodoCategory, User
+from app.schemas import UserCreate
+from app.users.users import get_user_db, get_user_manager
 
 TESTS_DATA_FILE_PATH: Final[str] = "src/tests/tests_data.json"
 

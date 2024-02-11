@@ -1,23 +1,16 @@
 from fastapi import APIRouter, Depends, status
-from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import conint
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db import get_async_session
+from app.dal import (GET_MULTI_DEFAULT_LIMIT, GET_MULTI_DEFAULT_SKIP,
+                     MAX_POSTGRES_INTEGER, db_service)
+from app.models.tables import Todo, User
+from app.schemas import (TodoCreate, TodoInDB, TodoRead, TodoUpdate,
+                         TodoUpdateInDB)
 from app.users.users import current_logged_user
-from app.models.tables import User, Todo
-from app.dal import (
-    db_service,
-    GET_MULTI_DEFAULT_SKIP,
-    GET_MULTI_DEFAULT_LIMIT,
-    MAX_POSTGRES_INTEGER,
-)
-from app.schemas import TodoRead, TodoInDB, TodoCreate, TodoUpdate, TodoUpdateInDB
-from app.utils import (
-    exception_handler,
-    get_open_api_response,
-    get_open_api_unauthorized_access_response,
-)
-
+from app.utils import (exception_handler, get_open_api_response,
+                       get_open_api_unauthorized_access_response)
 
 router = APIRouter(
     prefix="/src",

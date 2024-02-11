@@ -1,9 +1,9 @@
-import socket
 import asyncio
+import socket
 
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy import select
-from fastapi import APIRouter, Depends, status, Response
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db import get_async_session
 

@@ -1,12 +1,11 @@
 from typing import Final
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 from httpx import AsyncClient
+from pytest_lazyfixture import lazy_fixture
 
-from tests.conftest_utils import get_tests_data
 from app.core.config import get_config
-
+from tests.conftest_utils import get_tests_data
 
 config = get_config()
 

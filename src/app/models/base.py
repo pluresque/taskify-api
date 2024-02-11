@@ -1,8 +1,8 @@
 from typing import Any
 
 import humps
-from sqlalchemy.ext.declarative import declared_attr, as_declarative
 from sqlalchemy import inspect
+from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
 
 @as_declarative()

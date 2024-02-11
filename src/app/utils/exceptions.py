@@ -1,9 +1,10 @@
-from typing import Callable, Any, Type
 from functools import wraps
+from typing import Any, Callable, Type
 
-from fastapi import status, HTTPException
+from fastapi import HTTPException, status
 
-from app.http_exceptions import ResourceNotExists, UserNotAllowed, ResourceAlreadyExists
+from app.http_exceptions import (ResourceAlreadyExists, ResourceNotExists,
+                                 UserNotAllowed)
 
 
 def exception_handler(f: Callable) -> Any:

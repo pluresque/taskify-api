@@ -1,16 +1,16 @@
 import uuid
-from typing import Any
 from collections.abc import AsyncGenerator
+from typing import Any
 
 from fastapi import Depends
 from fastapi_users import FastAPIUsers
 from fastapi_users.db import SQLAlchemyUserDatabase
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.db import get_async_session
+from app.models.tables import User
 from app.users.auth import auth_backend
 from app.users.manager import UserManager
-from app.models.tables import User
-from app.core.db import get_async_session
 
 
 async def get_user_db(

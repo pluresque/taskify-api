@@ -1,15 +1,15 @@
+import logging
 import uuid
 from typing import Optional
-import logging
 
-from pydantic import SecretStr
 from fastapi import Request
 from fastapi_users import BaseUserManager, UUIDIDMixin
+from pydantic import SecretStr
 
 from app.core.config import get_config
 from app.models.tables import User
-from app.utils import send_reset_password_email, send_account_verification_email
-
+from app.utils import (send_account_verification_email,
+                       send_reset_password_email)
 
 config = get_config()
 

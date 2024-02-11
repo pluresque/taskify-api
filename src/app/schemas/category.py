@@ -3,8 +3,8 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from app.schemas.base import BaseInDB
 from app.models.tables import Category
+from app.schemas.base import BaseInDB
 
 
 class CategoryCreate(BaseModel):

@@ -1,23 +1,15 @@
-from fastapi import APIRouter, status, Depends
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter, Depends, status
 from pydantic import conint
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db import get_async_session
-from app.users.users import current_logged_user
-from app.dal import (
-    db_service,
-    GET_MULTI_DEFAULT_SKIP,
-    GET_MULTI_DEFAULT_LIMIT,
-    MAX_POSTGRES_INTEGER,
-)
-from app.schemas import CategoryCreate, CategoryRead, CategoryInDB
+from app.dal import (GET_MULTI_DEFAULT_LIMIT, GET_MULTI_DEFAULT_SKIP,
+                     MAX_POSTGRES_INTEGER, db_service)
 from app.models.tables import Category, User
-from app.utils import (
-    exception_handler,
-    get_open_api_response,
-    get_open_api_unauthorized_access_response,
-)
-
+from app.schemas import CategoryCreate, CategoryInDB, CategoryRead
+from app.users.users import current_logged_user
+from app.utils import (exception_handler, get_open_api_response,
+                       get_open_api_unauthorized_access_response)
 
 router = APIRouter(
     prefix="/categories",

@@ -1,11 +1,10 @@
-from typing import Any, Optional
 import logging
+from typing import Any, Optional
 
 from emails import Message
 from emails.template import JinjaTemplate
 
 from app.core.config import get_config
-
 
 config = get_config()
 

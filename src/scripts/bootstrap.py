@@ -1,13 +1,13 @@
-from typing import Final
+import asyncio
 import json
 import logging
+from typing import Final
 
-import asyncio
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db import Session
-from app.models.tables import Priority, Category
+from app.models.tables import Category, Priority
 
 INITIAL_DATA_FILE_PATH: Final[str] = "src/scripts/data.json"
 

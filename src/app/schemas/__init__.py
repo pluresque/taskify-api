@@ -4,7 +4,7 @@
 # InDB -  properties stored in DB
 
 from .base import BaseInDB
-from .user import UserRead, UserCreate, UserUpdate
+from .category import CategoryCreate, CategoryInDB, CategoryRead
 from .priority import PriorityRead
-from .category import CategoryRead, CategoryCreate, CategoryInDB
-from .todo import TodoRead, TodoCreate, TodoInDB, TodoUpdate, TodoUpdateInDB
+from .todo import TodoCreate, TodoInDB, TodoRead, TodoUpdate, TodoUpdateInDB
+from .user import UserCreate, UserRead, UserUpdate

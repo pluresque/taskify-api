@@ -2,10 +2,10 @@ import uuid
 
 from pydantic import BaseModel
 
-from app.schemas.base import BaseInDB, BaseUpdateInDB
-from app.schemas.priority import PriorityRead
-from app.schemas.category import CategoryRead
 from app.models.tables import Todo, TodoCategory
+from app.schemas.base import BaseInDB, BaseUpdateInDB
+from app.schemas.category import CategoryRead
+from app.schemas.priority import PriorityRead
 
 
 class TodoBase(BaseModel):

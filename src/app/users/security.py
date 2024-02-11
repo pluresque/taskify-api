@@ -1,11 +1,10 @@
-from typing import Optional, Final, Union
+from typing import Final, Optional, Union
 
 from fastapi_users.authentication import JWTStrategy
 from fastapi_users.jwt import SecretType, generate_jwt
 
 from app.core.config import get_config
 from app.models.tables import User
-
 
 config = get_config()
 

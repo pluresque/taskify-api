@@ -1,8 +1,7 @@
 from fastapi_users.authentication import AuthenticationBackend, BearerTransport
 
-from app.users.security import get_jwt_strategy
 from app.core.config import get_config
-
+from app.users.security import get_jwt_strategy
 
 config = get_config()
 
