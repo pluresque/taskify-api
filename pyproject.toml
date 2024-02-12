@@ -17,36 +17,11 @@ show_error_codes = true
 show_column_numbers = true
 
 [tool.ruff]
-
 exclude = [
-    ".bzr",
-    ".direnv",
-    ".eggs",
-    ".git",
-    ".git-rewrite",
-    ".hg",
-    ".ipynb_checkpoints",
-    ".mypy_cache",
-    ".nox",
-    ".pants.d",
-    ".pyenv",
-    ".pytest_cache",
-    ".pytype",
-    ".ruff_cache",
-    ".svn",
-    ".tox",
-    ".venv",
-    ".vscode",
-    "__pypackages__",
-    "_build",
-    "buck-out",
-    "build",
-    "dist",
-    "node_modules",
-    "site-packages",
-    "venv",
+    ".eggs", ".git", ".git-rewrite", ".mypy_cache",
+    ".pyenv", ".pytest_cache", ".pytype", ".ruff_cache",
+    ".venv", ".vscode", "__pypackages__", "venv", ".idea"
 ]
-
 line-length = 88
 indent-width = 4
 target-version = "py39"
@@ -77,7 +52,7 @@ description = "FastAPI based API for Taskify"
 requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: Apache Software License",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 
@@ -89,7 +64,7 @@ dependencies = [
     "fastapi-users[sqlalchemy]~=10.1.5",
     "fastapi-users-db-sqlalchemy~=4.0.3",
     "starlette~=0.20.4",
-    "SQLAlchemy~=1.4.41",
+    "SQLAlchemy~=1.4.41",  # SQLAlchemy 2.0 is located in develop-1.x branch
     "uvicorn~=0.22.0",
     "asyncpg~=0.26.0",
     "alembic~=1.5.8",
