@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status
 from pydantic import conint
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.db import get_async_session
+from app.core.database import get_async_session
 from app.dal import (
     GET_MULTI_DEFAULT_LIMIT,
     GET_MULTI_DEFAULT_SKIP,
@@ -11,8 +11,8 @@ from app.dal import (
 )
 from app.models.tables import Category, User
 from app.schemas import CategoryCreate, CategoryInDB, CategoryRead
-from app.users.users import current_logged_user
-from app.utils import (
+from app.core.users.users import current_logged_user
+from app.core.utils import (
     exception_handler,
     get_open_api_response,
     get_open_api_unauthorized_access_response,

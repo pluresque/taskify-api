@@ -6,7 +6,7 @@ from typing import Final
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.db import Session
+from app.core.database import Session
 from app.models.tables import Category, Priority
 
 INITIAL_DATA_FILE_PATH: Final[str] = "src/scripts/data.json"

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from app.schemas import UserRead, UserUpdate
-from app.users.users import fast_api_users
+from app.core.users.users import fast_api_users
 
 router = APIRouter(prefix="/users", tags=["Users"])
 

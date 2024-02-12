@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.dal.constants import GET_MULTI_DEFAULT_LIMIT, GET_MULTI_DEFAULT_SKIP
 from app.dal.db_repo import DBRepo
-from app.http_exceptions import ResourceAlreadyExists, ResourceNotExists, UserNotAllowed
+from app.exceptions import ResourceAlreadyExists, ResourceNotExists, UserNotAllowed
 from app.models.tables import Category, Priority, Todo
 from app.schemas import CategoryInDB, TodoInDB, TodoUpdateInDB
 
