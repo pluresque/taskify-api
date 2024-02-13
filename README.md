@@ -43,7 +43,7 @@ $ pip install -e .
 $ python3 src/scripts/bootstrap.py
 
 # Start the FastAPI server
-$ exec uvicorn app.main:app --host 0.0.0.0 --port 8000
+$ uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
 ## Packages
