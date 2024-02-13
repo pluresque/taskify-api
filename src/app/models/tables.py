@@ -20,11 +20,33 @@ class User(SQLAlchemyBaseUserTableUUID, Base): ...
 
 
 class Priority(Base):
+    """
+    Represents a priority level item.
+
+    Attributes:
+        id (BigInteger): The unique identifier of the priority.
+        name (str): The name of the priority level.
+
+    """
+
     id = Column(BigInteger(), primary_key=True, autoincrement=True)
     name = Column(String(15), nullable=False, unique=True)
 
 
 class Category(Base):
+    """
+    Represents a category item.
+
+    Attributes:
+        id (BigInteger): The unique identifier of the category.
+        name (str): The name of the category.
+        created_by_id (GUID): The ID of the user who created the category.
+
+    Relationships:
+        todos (list[Todo]): The todos associated with the category.
+
+    """
+
     id = Column(BigInteger(), primary_key=True, autoincrement=True)
     name = Column(Text(), nullable=False)
     created_by_id = Column(GUID, ForeignKey("user.id"))
@@ -39,6 +61,26 @@ class Category(Base):
 
 
 class Todo(Base):
+    """
+     Represents a Todo item.
+
+     Attributes:
+         id (BigInteger): The unique identifier of the todo.
+         is_completed (bool): Indicates whether the todo is completed or not.
+         content (str): The content of the todo.
+         created_by_id (GUID): The ID of the user who created the todo.
+         priority_id (BigInteger): The ID of the priority associated with the todo.
+
+     Relationships:
+         priority (Priority): The priority associated with the todo.
+         categories (list[Category]): The categories associated with the todo.
+         todos_categories (list[TodoCategory]): The todo-category relationships.
+
+     Methods:
+         dict(self) -> dict: Converts the object into a dictionary.
+
+     """
+
     id = Column(BigInteger(), primary_key=True, autoincrement=True)
     is_completed = Column(Boolean(), nullable=False, default=False)
     content = Column(Text(), nullable=False)
@@ -67,6 +109,15 @@ class Todo(Base):
 
 
 class TodoCategory(Base):
+    """
+    Represents the relationship between Todos and Categories.
+
+    Attributes:
+        todo_id (BigInteger): The ID of the todo.
+        category_id (BigInteger): The ID of the category.
+
+    """
+
     todo_id = Column(
         BigInteger(), ForeignKey("todo.id", ondelete="CASCADE"), primary_key=True
     )

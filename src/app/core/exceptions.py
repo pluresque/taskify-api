@@ -2,8 +2,18 @@ from dataclasses import dataclass
 from typing import Any, Literal
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class APIError(Exception):
+    """
+    Represents an API error.
+
+    Attributes:
+        code (int): The error code.
+        message (str): The error message.
+        data (Any): Additional data associated with the error.
+
+    """
+
     code: int
     message: str
     data: Any

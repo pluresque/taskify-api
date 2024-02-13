@@ -38,14 +38,26 @@ async def get_categories(
     session: AsyncSession = Depends(get_async_session),
     user: User = Depends(current_logged_user),
 ) -> list[Category]:
+    """
+    Asynchronously retrieves categories from the database based on user ID.
+
+    Args:
+        skip (int): The number of records to skip (default: GET_MULTI_DEFAULT_SKIP).
+        limit (int): The maximum number of records to return (default: GET_MULTI_DEFAULT_LIMIT).
+        session (AsyncSession): The asynchronous database session (default: Depends(get_async_session)).
+        user (User): The current logged-in user (default: Depends(current_logged_user)).
+
+    Returns:
+        list[Category]: A list of category objects.
+    """
+
     return await db_service.get_categories(
         session, created_by_id=user.id, skip=skip, limit=limit
     )
 
 
 @router.post(
-    "",
-    response_model=CategoryRead,
+    "", response_model=CategoryRead,
     status_code=status.HTTP_201_CREATED,
     responses={
         status.HTTP_401_UNAUTHORIZED: get_open_api_unauthorized_access_response(),
@@ -60,6 +72,20 @@ async def add_category(
     session: AsyncSession = Depends(get_async_session),
     user: User = Depends(current_logged_user),
 ) -> Category:
+    """
+    Asynchronously adds a new category to the database.
+
+    Args:
+        category_in (CategoryCreate): The input data for creating a new category.
+        session (AsyncSession): The asynchronous database session (default: Depends(get_async_session)).
+        user (User): The current logged-in user (default: Depends(current_logged_user)).
+
+    Returns:
+        Category: The newly created category object.
+
+    Raises:
+        HTTPException: If an error occurs during category addition.
+    """
     category_in = CategoryInDB(name=category_in.name, created_by_id=user.id)
     return await db_service.add_category(session, category_in=category_in)
 
