@@ -14,9 +14,9 @@ class APIError(Exception):
 
     """
 
-    code: int
-    message: str
-    data: Any
+    code: int = 500
+    message: str = "Unknown error"
+    data: Any = None
 
 
 @dataclass
