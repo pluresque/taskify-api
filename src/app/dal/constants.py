@@ -4,6 +4,5 @@ from typing import Final
 # if trying to send a bigger value than that in queries (like offset or limit)
 # the database throws an error - OverflowError: value out of int32 range
 MAX_POSTGRES_INTEGER: Final[int] = (2**31) - 1
-
 GET_MULTI_DEFAULT_SKIP: Final[int] = 0
 GET_MULTI_DEFAULT_LIMIT: Final[int] = 100

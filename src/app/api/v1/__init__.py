@@ -5,7 +5,7 @@ from app.core.config import get_config
 from .auth import router as auth_router
 from .categories import router as categories_router
 from .priorities import router as priorities_router
-from .todos import router as todos_router
+from .tasks import router as todos_router
 from .users import router as users_router
 
 config = get_config()

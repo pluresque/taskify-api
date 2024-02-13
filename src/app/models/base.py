@@ -7,6 +7,19 @@ from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
 @as_declarative()
 class Base:
+    """
+    Base class for SQLAlchemy declarative base.
+
+    Attributes:
+        __name__ (str): The name of the class.
+
+    Methods:
+        __tablename__(cls) -> str: Returns the table name based on the class name.
+        dict(self) -> dict[str, Any]: Converts the object into a dictionary.
+        __repr__(self) -> str: Returns a string representation of the object.
+        __str__(self) -> str: Returns a string representation of the object.
+    """
+
     __name__: str
 
     @declared_attr
